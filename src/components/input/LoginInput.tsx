@@ -30,6 +30,7 @@ const LoginInput: FC<LoginInputProps> = (props) => {
             <Input
               className="border-gray-200 py-5 px-4 focus-visible:ring-low_blue focus-visible:border-low_blue
 "
+              required
               type={type}
               placeholder={placeholder}
               {...field}
