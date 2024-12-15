@@ -19,15 +19,18 @@ const ApiList = () => {
     queryFn: () => getApiList(props)
   });
 
+  if (isError) {
+    return (
+      <ErrorPopup
+        msg={error?.message}
+        open={netWorkerror}
+        handleErrorModal={setNetWorkerror}
+      />
+    );
+  }
+
   return (
     <>
-      {isError && (
-        <ErrorPopup
-          msg={error?.message}
-          open={netWorkerror}
-          handleErrorModal={setNetWorkerror}
-        />
-      )}
       <div className="font-semibold text-2xl pb-5">API 조회 리스트</div>
       <Card className="w-full overflow-x-auto">
         <CardContent>

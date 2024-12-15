@@ -8,52 +8,26 @@ import {
   TableBody,
   TableCell
 } from "@/components/ui/table";
-import { getScrapData } from "@/lib/api/scrapApi";
 import { APILISTHEADERDATA } from "@/lib/data";
-import { IApiList, ScrapDataProps, ScrapDataResponse } from "@/lib/types";
-import { useQuery } from "@tanstack/react-query";
-import { FC, useEffect, useState } from "react";
+import { IApiList } from "@/lib/types";
+import { FC } from "react";
 import ScrapPopup from "./ScrapPopup";
-import useApiStore from "@/store/apiStore";
+import useScrapData from "@/hook/useScrapData";
+import { Button } from "@/components/ui/button";
 
 interface ScrapTableProps {
   data: IApiList[];
 }
 
 const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
-  const [props, setProps] = useState<ScrapDataProps | null>(null);
-  const { addApiClikcedList } = useApiStore();
-  const [popupOpen, setPopupOpen] = useState(false);
-
   const {
-    data: scrapData,
-    refetch
-    //isError,
-    //error
-  } = useQuery<ScrapDataResponse>({
-    queryKey: ["apilist", props],
-    queryFn: () => getScrapData(props),
-    enabled: !!props //prop가 있을때만 api 호출
-  });
-
-  const handleClickRow = (rowData: IApiList) => {
-    //호출시간 저장 & 호출 히스토리 리스트에 추가
-    rowData.clickedTime = new Date().toISOString();
-    rowData.bookmark = false;
-    addApiClikcedList(rowData);
-    setProps({ mdulCustCd: rowData.mdulCustCd, apiCd: rowData.apiCd });
-    handlePopupOpen();
-  };
-
-  useEffect(() => {
-    if (props) {
-      refetch();
-    }
-  }, [props, refetch]);
-
-  const handlePopupOpen = () => {
-    setPopupOpen(!popupOpen);
-  };
+    scrapData,
+    popupOpen,
+    handleClickRow,
+    handlePopupOpen,
+    isError,
+    error
+  } = useScrapData();
 
   return (
     <>
@@ -61,6 +35,8 @@ const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
         <ScrapPopup
           data={scrapData}
           open={popupOpen}
+          isError={isError}
+          error={error}
           handlePopupOpen={handlePopupOpen}
         />
       )}
@@ -69,29 +45,21 @@ const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
           <TableRow>
             {APILISTHEADERDATA.map((title, index) => {
               return (
-                <TableHead
-                  key={index}
-                  className={`py-3 text-black font-bold ${
-                    index === APILISTHEADERDATA.length - 1
-                      ? "text-end"
-                      : "text-start"
-                  } `}
-                >
+                <TableHead key={index} className="py-3 text-black font-bold">
                   {title}
                 </TableHead>
               );
             })}
+            <TableHead className="py-3 text-black font-bold">
+              호출버튼
+            </TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
           {data.map((row, index) => {
             return (
-              <TableRow
-                key={index}
-                className="text-dark_gray"
-                onClick={() => handleClickRow(row)}
-              >
+              <TableRow key={index} className="text-dark_gray">
                 <TableCell className="min-w-[120px] py-3">
                   {row.apiNm}
                 </TableCell>
@@ -103,8 +71,14 @@ const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
                 <TableCell className="min-w-[120px]">{row.mdulNm}</TableCell>
                 <TableCell className="min-w-[120px]">{row.kwrdCd}</TableCell>
                 <TableCell className="min-w-[120px]">{row.kwrdNm}</TableCell>
-                <TableCell className="min-w-[120px] text-end">
-                  {row.prvr}
+                <TableCell className="min-w-[120px]">{row.prvr}</TableCell>
+                <TableCell className="min-w-[120px]">
+                  <Button
+                    className="bg-blue hover:bg-low_gray"
+                    onClick={() => handleClickRow(row)}
+                  >
+                    호출하기
+                  </Button>
                 </TableCell>
               </TableRow>
             );

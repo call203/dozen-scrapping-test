@@ -17,7 +17,7 @@ export const authApi = axios.create({
 authApi.defaults.headers.common["Content-Type"] = "application/json";
 
 //로그아웃
-const logout = () => {
+export const logout = () => {
   localStorage.removeItem("accessToken");
   //로그인 페이지로 리다이렉트
   window.location.href = "/";
@@ -52,20 +52,23 @@ const isTokenExpired = (token: string): boolean => {
 authApi.interceptors.request.use(
   (config) => {
     const accessToken: string | null = localStorage.getItem("accessToken");
+    const isLoginPage = window.location.pathname === "/";
+    //// 로그인 페이지가 모든 응답의 대한 토큰 체크
+    if (!isLoginPage) {
+      if (accessToken) {
+        //토큰 만료 체크
+        if (isTokenExpired(accessToken)) {
+          logout();
+        } else {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        }
 
-    //토큰이 있다면
-    if (accessToken) {
-      //토큰 만료 체크
-      if (isTokenExpired(accessToken)) {
-        logout();
+        //토큰이 없다면
       } else {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+        logout();
       }
-
-      //토큰이 없다면
-    } else {
-      logout();
     }
+
     return config;
   },
   async (error) => {

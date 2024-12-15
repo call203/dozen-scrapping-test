@@ -8,7 +8,7 @@ import LoginInput from "../input/LoginInput";
 import { ILoginResponse, LoginInputProps } from "@/lib/types";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "@/lib/api/authApi";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
@@ -47,9 +47,12 @@ const LoginForm = () => {
   });
 
   //로그인 버튼 클릭시
-  const handleLoginButton = (values: LoginInputProps) => {
-    loginMutation.mutate(values);
-  };
+  const handleLoginButton = useCallback(
+    (values: LoginInputProps) => {
+      loginMutation.mutate(values);
+    },
+    [loginMutation]
+  );
 
   return (
     <Card className="w-[600px] bg-white py-8 px-0 mx-4">
