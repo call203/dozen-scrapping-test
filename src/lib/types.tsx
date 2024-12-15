@@ -1,5 +1,5 @@
 export interface ILoginResponse {
-  errYMN: string;
+  errYn: string;
   code: string;
   msg: string;
   data: {
@@ -17,8 +17,26 @@ export interface ApiListProps {
   pageIdx?: number;
 }
 
+export interface ScrapDataProps {
+  mdulCustCd?: string;
+  apiCd?: string;
+}
+
+export interface ScrapDataResponse {
+  errYn: string;
+  code: string;
+  msg: string;
+  data: {
+    out: {
+      code: string;
+      msg: string;
+      data: any;
+    };
+  };
+}
+
 export interface IApiListResponse {
-  errYMN: string;
+  errYn: string;
   code: string;
   msg: string;
   data: {

@@ -34,7 +34,7 @@ const LoginForm = () => {
         //네트워크 에러
         setError("알 수 없는 네트워크 에러입니다.");
       }
-    },
+    }
   });
 
   const form = useForm<LoginInputProps>({
@@ -42,13 +42,12 @@ const LoginForm = () => {
     shouldFocusError: false,
     defaultValues: {
       admUserId: "",
-      userPw: "",
-    },
+      userPw: ""
+    }
   });
 
   //로그인 버튼 클릭시
   const handleLoginButton = (values: LoginInputProps) => {
-    // console.log(values);
     loginMutation.mutate(values);
   };
 

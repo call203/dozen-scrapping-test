@@ -8,22 +8,28 @@ import ScrapTable from "./ScrapTable";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useState } from "react";
 import PaginationWithLink from "./ScrapTablePagination";
+import ErrorPopup from "@/components/popup/ErrorPopup";
 
 export default function Page() {
   const [currentPage, setCurrentPage] = useState(1);
   const props = { pageSize: 10, pageIdx: currentPage };
+  const [netWorkerror, setNetWorkerror] = useState<boolean>(true);
   const { isLoading, isError, data, error } = useQuery<IApiListResponse>({
     queryKey: ["apilist", props],
-    queryFn: () => getApiList(props),
+    queryFn: () => getApiList(props)
   });
-
-  if (isError) {
-    console.log(error);
-  }
 
   return (
     <div className="flex flex-col min-h-[100vh] w-full md:p-10 p-4">
       <div className="font-semibold text-2xl pb-5">API 조회 리스트</div>
+      {isError && (
+        <ErrorPopup
+          msg={error?.message}
+          open={netWorkerror}
+          handleErrorModal={setNetWorkerror}
+        />
+      )}
+
       <Card className="w-full overflow-x-auto">
         <CardContent>
           {/**로딩시 */}
