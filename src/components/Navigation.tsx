@@ -15,7 +15,7 @@ const Navigation: FC<NavigationProps> = ({ handleNavigaion, currentNav }) => {
       <div className="max-w-screen flex flex-wrap items-center mx-auto p-4 justify-between">
         <div>
           <Link href="/scrap">
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-blue">
+            <span className="sm:mx-3 self-center text-2xl font-semibold whitespace-nowrap text-blue">
               Dozn
             </span>
           </Link>
@@ -36,7 +36,7 @@ const Navigation: FC<NavigationProps> = ({ handleNavigaion, currentNav }) => {
             조회 히스토리
           </button>
         </div>
-        <div className="text-dark_gray hidden sm:block" onClick={logout}>
+        <div className="text-dark_gray hidden sm:block mx-3" onClick={logout}>
           logout
         </div>
       </div>
