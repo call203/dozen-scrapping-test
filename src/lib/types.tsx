@@ -1,5 +1,5 @@
 export interface ILoginResponse {
-  errYMN: string;
+  errYn: string;
   code: string;
   msg: string;
   data: {
@@ -17,7 +17,36 @@ export interface ApiListProps {
   pageIdx?: number;
 }
 
+export interface ScrapDataProps {
+  mdulCustCd?: string;
+  apiCd?: string;
+}
+
+export interface ScrapDataResponse {
+  errYn: string;
+  code: string;
+  msg: string;
+  data: {
+    out: {
+      code: string;
+      msg: string;
+      data: object;
+    };
+  };
+}
+
 export interface IApiListResponse {
+  errYn: string;
+  code: string;
+  msg: string;
+  data: {
+    list: IApiList[];
+    totalCount: number;
+    totalPage: number;
+  };
+}
+
+export interface IApiList {
   admUserId: string;
   apiNm: string;
   apiDesc: string;
@@ -31,5 +60,5 @@ export interface IApiListResponse {
   cmnCdLginType: string;
   cmnCdLginTypeNm: string;
   mdulCustCd: string;
-  mdculNm: string;
+  mdulNm: string;
 }

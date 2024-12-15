@@ -7,7 +7,7 @@ import { Form } from "../ui/form";
 import LoginInput from "../input/LoginInput";
 import { ILoginResponse, LoginInputProps } from "@/lib/types";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "@/lib/authApi";
+import { loginUser } from "@/lib/api/authApi";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -34,7 +34,7 @@ const LoginForm = () => {
         //네트워크 에러
         setError("알 수 없는 네트워크 에러입니다.");
       }
-    },
+    }
   });
 
   const form = useForm<LoginInputProps>({
@@ -42,13 +42,12 @@ const LoginForm = () => {
     shouldFocusError: false,
     defaultValues: {
       admUserId: "",
-      userPw: "",
-    },
+      userPw: ""
+    }
   });
 
   //로그인 버튼 클릭시
   const handleLoginButton = (values: LoginInputProps) => {
-    // console.log(values);
     loginMutation.mutate(values);
   };
 

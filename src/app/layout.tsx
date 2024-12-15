@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="bg-white min-h-[100vh]">
+        <div className="bg-low_blue min-h-[100vh]">
           <Providers>{children}</Providers>
         </div>
       </body>
