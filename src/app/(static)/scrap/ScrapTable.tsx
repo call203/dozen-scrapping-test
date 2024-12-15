@@ -20,7 +20,7 @@ interface ScrapTableProps {
 
 const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
   const [props, setProps] = useState<ScrapDataProps | null>(null);
-  const { addApiClikcedList } = useApiStore();
+  const { apiCilkedList, addApiClikcedList } = useApiStore();
   const [popupOpen, setPopupOpen] = useState(false);
 
   const {
@@ -35,7 +35,9 @@ const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
   });
 
   const handleClickRow = (rowData: IApiList) => {
-    //호출 히스토리 리스트에 추가
+    //호출시간 저장 & 호출 히스토리 리스트에 추가
+    rowData.clickedTime = new Date().toISOString();
+    rowData.bookmark = false;
     addApiClikcedList(rowData);
     setProps({ mdulCustCd: rowData.mdulCustCd, apiCd: rowData.apiCd });
     handlePopupOpen();
@@ -46,6 +48,10 @@ const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
       refetch();
     }
   }, [props, refetch]);
+
+  useEffect(() => {
+    console.log(apiCilkedList);
+  }, [apiCilkedList]);
 
   const handlePopupOpen = () => {
     setPopupOpen(!popupOpen);

@@ -23,7 +23,7 @@ const LoginForm = () => {
       const accessToken = data.data.accessToken;
       //토큰 로컬스토리지에 저장
       localStorage.setItem("accessToken", accessToken);
-      router.push("/scrap/list");
+      router.push("/scrap");
     },
     onError: (error: AxiosError) => {
       //로그인 실패시

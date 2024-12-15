@@ -61,4 +61,6 @@ export interface IApiList {
   cmnCdLginTypeNm: string;
   mdulCustCd: string;
   mdulNm: string;
+  bookmark: boolean;
+  clickedTime: string;
 }
