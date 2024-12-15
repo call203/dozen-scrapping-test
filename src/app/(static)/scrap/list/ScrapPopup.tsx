@@ -3,7 +3,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogDescription,
-  DialogHeader,
+  DialogHeader
 } from "@/components/ui/dialog";
 import {
   Table,
@@ -11,7 +11,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table";
 import { ScrapDataResponse } from "@/lib/types";
 
@@ -23,13 +23,14 @@ interface ScrapPopupProps {
   handlePopupOpen: () => void;
 }
 
+/**scrap data 호출 및 팝업에 표시*/
 const ScrapPopup: FC<ScrapPopupProps> = (props) => {
   const { data, open, handlePopupOpen } = props;
 
   return (
     <Dialog open={open} onOpenChange={handlePopupOpen}>
       <DialogTitle />
-      <DialogContent>
+      <DialogContent className="rounded-xl">
         <DialogHeader>
           <DialogTitle />
           <DialogDescription></DialogDescription>
@@ -43,9 +44,11 @@ const ScrapPopup: FC<ScrapPopupProps> = (props) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow key="values">
+            <TableRow>
               {Object.values(data.data.out).map((value, index) => (
-                <TableCell key={index}>{JSON.stringify(value)}</TableCell>
+                <TableCell height={300} className="min-w-[120px]" key={index}>
+                  {JSON.stringify(value)}
+                </TableCell>
               ))}
             </TableRow>
           </TableBody>

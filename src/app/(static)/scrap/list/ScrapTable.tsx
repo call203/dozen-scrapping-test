@@ -12,6 +12,7 @@ import { IApiList, ScrapDataProps, ScrapDataResponse } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { FC, useEffect, useState } from "react";
 import ScrapPopup from "./ScrapPopup";
+import useApiStore from "@/store/apiStore";
 
 interface ScrapTableProps {
   data: IApiList[];
@@ -19,14 +20,23 @@ interface ScrapTableProps {
 
 const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
   const [props, setProps] = useState<ScrapDataProps | null>(null);
+  const { addApiClikcedList } = useApiStore();
   const [popupOpen, setPopupOpen] = useState(false);
-  const { data: scrapData, refetch } = useQuery<ScrapDataResponse>({
+
+  const {
+    data: scrapData,
+    refetch
+    //isError,
+    //error
+  } = useQuery<ScrapDataResponse>({
     queryKey: ["apilist", props],
     queryFn: () => getScrapData(props),
-    enabled: false
+    enabled: !!props //prop가 있을때만 api 호출
   });
 
   const handleClickRow = (rowData: IApiList) => {
+    //호출 히스토리 리스트에 추가
+    addApiClikcedList(rowData);
     setProps({ mdulCustCd: rowData.mdulCustCd, apiCd: rowData.apiCd });
     handlePopupOpen();
   };
@@ -40,10 +50,6 @@ const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
   const handlePopupOpen = () => {
     setPopupOpen(!popupOpen);
   };
-
-  useEffect(() => {
-    console.log(JSON.stringify(scrapData?.data));
-  }, [scrapData]);
 
   return (
     <>

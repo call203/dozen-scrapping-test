@@ -17,7 +17,7 @@ export const getApiList = async (
 };
 
 export const getScrapData = async (
-  props: ScrapDataProps
+  props: ScrapDataProps | null
 ): Promise<ScrapDataResponse> => {
   const res = await authApi.get("/admin/api/recruit/scrp-recruit", {
     params: { ...props }

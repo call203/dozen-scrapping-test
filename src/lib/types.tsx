@@ -30,7 +30,7 @@ export interface ScrapDataResponse {
     out: {
       code: string;
       msg: string;
-      data: any;
+      data: object;
     };
   };
 }

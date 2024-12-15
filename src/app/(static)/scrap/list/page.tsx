@@ -33,9 +33,9 @@ export default function Page() {
       <Card className="w-full overflow-x-auto">
         <CardContent>
           {/**로딩시 */}
-          {isLoading && <LoadingSpinner />}
-
-          {data && Array.isArray(data.data.list) ? (
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : data && Array.isArray(data.data.list) ? (
             <>
               {/** 테이블 */}
               <ScrapTable data={data.data.list} />
