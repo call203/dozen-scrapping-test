@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ScrapTable from "./ScrapTable";

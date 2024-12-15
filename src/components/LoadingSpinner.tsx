@@ -1,5 +1,6 @@
 "use client";
 
+/** 로딩 스피너 */
 const LoadingSpinner = () => {
   return (
     <div

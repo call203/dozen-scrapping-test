@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableHeader,
@@ -20,7 +22,7 @@ interface ScrapTableProps {
 
 const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
   const [props, setProps] = useState<ScrapDataProps | null>(null);
-  const { apiCilkedList, addApiClikcedList } = useApiStore();
+  const { addApiClikcedList } = useApiStore();
   const [popupOpen, setPopupOpen] = useState(false);
 
   const {
@@ -48,10 +50,6 @@ const ScrapTable: FC<ScrapTableProps> = ({ data }) => {
       refetch();
     }
   }, [props, refetch]);
-
-  useEffect(() => {
-    console.log(apiCilkedList);
-  }, [apiCilkedList]);
 
   const handlePopupOpen = () => {
     setPopupOpen(!popupOpen);

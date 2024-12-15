@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import useApiStore from "@/store/apiStore";
@@ -22,18 +24,21 @@ const ApiHistory = () => {
   } = useApiStore();
   const [selectedValue, setSelectedValue] = useState("timeDesc");
 
+  //처음 초기에 최신순으로 정렬
   useEffect(() => {
     sortListByTimeAsc();
-  }, []);
+  }, [sortListByTimeAsc]);
 
+  //최신순과 오래된 순의 대한 정렬 함수 호출
   useEffect(() => {
     if (selectedValue === "timeDesc") {
       sortListByTimeDesc();
     } else {
       sortListByTimeAsc();
     }
-  }, [selectedValue]);
+  }, [selectedValue, sortListByTimeAsc, sortListByTimeDesc]);
 
+  //정렬방법 select 값 변경
   const handleChange = (value: string) => {
     setSelectedValue(value);
   };
@@ -57,6 +62,7 @@ const ApiHistory = () => {
           </Select>
         </div>
       </div>
+      {/** 카드 형식 리스트 */}
       <div className="grid grid-cols-1  gap-4">
         {apiCilkedList.length > 0 ? (
           apiCilkedList.map((data, index) => {
@@ -66,6 +72,7 @@ const ApiHistory = () => {
                   <div className="flex flex-col">
                     <div className="flex flex-row sm:justify-start justify-between">
                       <p className="font-bold mr-5">{data.apiNm}</p>
+                      {/**북마크 */}
                       {data.bookmark ? (
                         <BookmarkFilledIcon
                           onClick={() => handleBookMark(index)}

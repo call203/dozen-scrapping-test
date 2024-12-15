@@ -12,7 +12,7 @@ const apiURL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 //axios 인스턴스 생성
 export const authApi = axios.create({
-  baseURL: apiURL,
+  baseURL: apiURL
 });
 authApi.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -45,7 +45,6 @@ const isTokenExpired = (token: string): boolean => {
   if (!expirationTime) return true;
 
   const currentTime = new Date().getTime();
-
   return currentTime > expirationTime;
 };
 
@@ -53,8 +52,7 @@ const isTokenExpired = (token: string): boolean => {
 authApi.interceptors.request.use(
   (config) => {
     const accessToken: string | null = localStorage.getItem("accessToken");
-    // const accessToken =
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWNhdGlvbiI6ImRvem5fcmVjcnVpdDAzIiwiaXNEb3puIjoiVVNFUiIsImFwaUtleSI6InA0Tkx4dmRWYU5pTFJHWE92R2R5WFg2MTN2Mk9HWnVRZ2FSc01oRG80a3Q1WHpJZUd0SEFuZ0RKZmdnK3ZHVk1CcFZpcE1iNW0xMFRaSmhwL3IyYkdvTkkxNmE0Y0dRTjFhTjJvbWFneitRPSIsImlhdCI6MTczNDEwMzA2OSwiZXhwIjoxNzM0MTg5NDY5fQ.jplrV4s1e0n-y1khLAtW7dzq4Wx-4bqI7wmA5G5wVNk";
+
     //토큰이 있다면
     if (accessToken) {
       //토큰 만료 체크
