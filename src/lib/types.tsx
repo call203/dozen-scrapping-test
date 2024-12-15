@@ -18,6 +18,17 @@ export interface ApiListProps {
 }
 
 export interface IApiListResponse {
+  errYMN: string;
+  code: string;
+  msg: string;
+  data: {
+    list: IApiList[];
+    totalCount: number;
+    totalPage: number;
+  };
+}
+
+export interface IApiList {
   admUserId: string;
   apiNm: string;
   apiDesc: string;
@@ -31,5 +42,5 @@ export interface IApiListResponse {
   cmnCdLginType: string;
   cmnCdLginTypeNm: string;
   mdulCustCd: string;
-  mdculNm: string;
+  mdulNm: string;
 }

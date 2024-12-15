@@ -7,7 +7,7 @@ import { Form } from "../ui/form";
 import LoginInput from "../input/LoginInput";
 import { ILoginResponse, LoginInputProps } from "@/lib/types";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "@/lib/authApi";
+import { loginUser } from "@/lib/api/authApi";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
