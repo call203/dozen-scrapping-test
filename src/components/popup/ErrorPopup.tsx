@@ -20,8 +20,8 @@ const ErrorPopup: FC<ErrorPopupProps> = ({ msg, open, handleErrorModal }) => {
         <DialogHeader>
           <DialogTitle>에러</DialogTitle>
           <DialogDescription>
-            <div>{msg}</div>
-            <div>네트워크 에러: 고객센터로 문의해주세요</div>
+            {msg}
+            네트워크 에러: 고객센터로 문의해주세요
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

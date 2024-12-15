@@ -1,16 +1,16 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import ScrapTable from "./ScrapTable";
+import ScrapTablePagination from "./ScrapTablePagination";
 import { getApiList } from "@/lib/api/scrapApi";
 import { IApiListResponse } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import ScrapTable from "./ScrapTable";
-import LoadingSpinner from "@/components/LoadingSpinner";
 import { useState } from "react";
-import PaginationWithLink from "./ScrapTablePagination";
 import ErrorPopup from "@/components/popup/ErrorPopup";
 
-export default function Page() {
+const ApiList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const props = { pageSize: 10, pageIdx: currentPage };
   const [netWorkerror, setNetWorkerror] = useState<boolean>(true);
@@ -19,17 +19,19 @@ export default function Page() {
     queryFn: () => getApiList(props)
   });
 
-  return (
-    <div className="flex flex-col min-h-[100vh] w-full md:p-10 p-4">
-      <div className="font-semibold text-2xl pb-5">API 조회 리스트</div>
-      {isError && (
-        <ErrorPopup
-          msg={error?.message}
-          open={netWorkerror}
-          handleErrorModal={setNetWorkerror}
-        />
-      )}
+  if (isError) {
+    return (
+      <ErrorPopup
+        msg={error?.message}
+        open={netWorkerror}
+        handleErrorModal={setNetWorkerror}
+      />
+    );
+  }
 
+  return (
+    <>
+      <div className="font-semibold text-2xl pb-5">API 조회 리스트</div>
       <Card className="w-full overflow-x-auto">
         <CardContent>
           {/**로딩시 */}
@@ -41,7 +43,7 @@ export default function Page() {
               <ScrapTable data={data.data.list} />
               {/** 페이지네이션 */}
               <div className="pt-5">
-                <PaginationWithLink
+                <ScrapTablePagination
                   page={currentPage}
                   pageSize={data?.data.totalPage}
                   onPageChange={setCurrentPage}
@@ -59,6 +61,8 @@ export default function Page() {
           )}
         </CardContent>
       </Card>
-    </div>
+    </>
   );
-}
+};
+
+export default ApiList;

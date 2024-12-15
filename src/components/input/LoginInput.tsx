@@ -4,7 +4,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { useFormContext } from "react-hook-form";
@@ -20,6 +20,7 @@ const LoginInput: FC<LoginInputProps> = (props) => {
   const { name, label, placeholder, type } = props;
   const { control } = useFormContext();
   return (
+    /**로그인 form's input */
     <FormField
       control={control}
       name={name}
@@ -28,8 +29,7 @@ const LoginInput: FC<LoginInputProps> = (props) => {
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
-              className="border-gray-200 py-5 px-4 focus-visible:ring-low_blue focus-visible:border-low_blue
-"
+              className="border-gray-200 py-5 px-4 focus-visible:ring-low_blue focus-visible:border-low_blue"
               required
               type={type}
               placeholder={placeholder}

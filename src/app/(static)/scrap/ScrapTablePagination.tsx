@@ -7,7 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
   PaginationItem,
-  PaginationContent,
+  PaginationContent
 } from "@/components/ui/pagination";
 import { FC } from "react";
 
@@ -19,7 +19,7 @@ interface ScrapTablePaginationProps {
 const ScrapTablePagination: FC<ScrapTablePaginationProps> = ({
   page,
   pageSize,
-  onPageChange,
+  onPageChange
 }) => {
   const renderPageNumbers = () => {
     const items = [];
