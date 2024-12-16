@@ -34,7 +34,7 @@ const ScrapPopup: FC<ScrapPopupProps> = (props) => {
   return (
     <Dialog open={open} onOpenChange={handlePopupOpen}>
       <DialogTitle />
-      <DialogContent className="rounded-xl">
+      <DialogContent className="rounded-xl max-w-6xl">
         <DialogHeader>
           <DialogTitle />
           <DialogDescription></DialogDescription>
